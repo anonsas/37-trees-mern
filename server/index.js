@@ -23,12 +23,13 @@ app.get('/', (req, res) => {
   res.send('Hello Earth');
 });
 
-app.get('/trees', (req, res) => {
+app.get('/trees/:tipas', (req, res) => {
   const sql = `
-  SELECT *
-  FROM trees
+  SELECT * FROM trees
+  WHERE type=?
+  
   `;
-  con.query(sql, (err, result) => {
+  con.query(sql, [req.params.tipas], (err, result) => {
     if (err) throw err;
     res.send(result);
   });

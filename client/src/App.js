@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:4000/trees')
+      .get('http://localhost:4000/trees/2')
       .then((response) => {
         setIsLoading(false);
         setTrees(response.data);

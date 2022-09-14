@@ -1,18 +1,16 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
+const mysql = require('mysql');
 
 const app = express();
-app.use(cors());
-// serverio leidimas(sutikimas) bendrauti narsyklei per JS.
+app.use(cors()); // serverio sutikimas bendrauti narsyklei per JS.
 
-const mysql = require('mysql');
 app.use(
   express.urlencoded({
     extended: true,
   })
 );
-app.use(express.json());
 
 const con = mysql.createConnection({
   host: 'localhost',
@@ -26,7 +24,14 @@ app.get('/', (req, res) => {
 });
 
 app.get('/trees', (req, res) => {
-  res.send('Medziai');
+  const sql = `
+  SELECT *
+  FROM trees
+  `;
+  con.query(sql, (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
 });
 
 app.listen(process.env.PORT, () => {

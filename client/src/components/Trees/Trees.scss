@@ -38,3 +38,37 @@
   flex-direction: column;
   row-gap: 1rem;
 }
+
+// MODAL ==============================
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #282c34cc;
+}
+
+.edit-form {
+  padding: 4rem;
+  border: 3px dashed skyblue;
+  background-color: #282c34;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 1rem;
+  color: white;
+  span,
+  input,
+  select {
+    font-size: 3rem;
+    outline: none;
+    border: none;
+    padding: 0.5rem;
+    margin: 1rem;
+  }
+}

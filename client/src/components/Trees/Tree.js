@@ -3,13 +3,16 @@ import TreesContext from '../../contexts/TreesContext';
 import axios from 'axios';
 
 function Tree({ tree }) {
-  const { types, setLastUpdate } = useContext(TreesContext);
+  const { types, setLastUpdate, setModalData } = useContext(TreesContext);
+
+  const editTreeHandler = (tree) => {
+    setModalData({ ...tree });
+  };
 
   const deleteTreeHandler = (id) => {
     axios
       .delete(`http://localhost:4000/trees/${id}`)
       .then((response) => {
-        console.log(`Item with ${id} deleted`);
         setLastUpdate(Date.now());
       })
       .catch((error) => alert(error.message));
@@ -23,7 +26,7 @@ function Tree({ tree }) {
         <p>{types.find((t) => t.id === tree.type).type}</p>
       </div>
       <div className="tree__actions">
-        <button>Edit</button>
+        <button onClick={() => editTreeHandler(tree)}>Edit</button>
         <button onClick={() => deleteTreeHandler(tree.id)}>Delete</button>
       </div>
     </div>

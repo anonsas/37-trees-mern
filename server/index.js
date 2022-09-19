@@ -56,6 +56,22 @@ app.get('/trees/:tipas', (req, res) => {
   });
 });
 
+app.put('/trees/:id', (req, res) => {
+  const sql = `
+  UPDATE trees
+  SET title = ?, height = ?, type = ?
+  WHERE id=?;
+  `;
+  con.query(
+    sql,
+    [req.body.title, req.body.height, req.body.type, req.params.id],
+    (err, result) => {
+      if (err) throw err;
+      res.send(result);
+    }
+  );
+});
+
 app.delete('/trees/:id', (req, res) => {
   const sql = `DELETE FROM trees WHERE id=?`;
   con.query(sql, [req.params.id], (err, result) => {

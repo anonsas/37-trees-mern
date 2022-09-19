@@ -5,12 +5,15 @@ import Loader from './helpers/Loader';
 import TressForm from './components/Trees/TressForm';
 import Trees from './components/Trees/Trees';
 import TreesContext from './contexts/TreesContext';
+import Modal from './components/Trees/Modal';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [trees, setTrees] = useState(null);
   const [error, setError] = useState('');
+
   const [lastUpdate, setLastUpdate] = useState(Date.now());
+  const [modalData, setModalData] = useState(null);
 
   const types = [
     { id: 1, type: 'Lapuotis' },
@@ -40,11 +43,21 @@ function App() {
   }
 
   return (
-    <TreesContext.Provider value={{ trees, setTrees, types, setLastUpdate }}>
+    <TreesContext.Provider
+      value={{
+        trees,
+        setTrees,
+        types,
+        setLastUpdate,
+        modalData,
+        setModalData,
+      }}
+    >
       <main className="main">
         <TressForm />
         <Trees />
       </main>
+      <Modal />
     </TreesContext.Provider>
   );
 }

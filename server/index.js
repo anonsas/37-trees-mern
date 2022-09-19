@@ -11,6 +11,7 @@ app.use(
     extended: true,
   })
 );
+app.use(express.json());
 
 const con = mysql.createConnection({
   host: 'localhost',
@@ -23,13 +24,41 @@ app.get('/', (req, res) => {
   res.send('Hello Earth');
 });
 
+app.get('/trees', (req, res) => {
+  const sql = `
+  SELECT * FROM trees
+  `;
+  con.query(sql, (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
+app.post('/trees', (req, res) => {
+  const sql = `
+  INSERT INTO trees (title, height, type)
+  VALUES (?, ?, ?)
+  `;
+  con.query(sql, [req.body.title, req.body.height, req.body.type], (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
 app.get('/trees/:tipas', (req, res) => {
   const sql = `
   SELECT * FROM trees
   WHERE type=?
-  
   `;
   con.query(sql, [req.params.tipas], (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
+app.delete('/trees/:id', (req, res) => {
+  const sql = `DELETE FROM trees WHERE id=?`;
+  con.query(sql, [req.params.id], (err, result) => {
     if (err) throw err;
     res.send(result);
   });

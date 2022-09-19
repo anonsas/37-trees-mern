@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Trees.scss';
+import TreesContext from '../../contexts/TreesContext';
+import Tree from './Tree';
 
-function Trees({ trees }) {
+function Trees() {
+  const { trees } = useContext(TreesContext);
+
   return (
     <div className="trees-container">
       {trees?.map((tree) => (
-        <div className="tree" key={tree.id}>
-          <p>{tree.title}</p>
-          <p>{tree.height}m</p>
-          <p>{tree.type}</p>
-        </div>
+        <Tree tree={tree} key={tree.id} />
       ))}
     </div>
   );

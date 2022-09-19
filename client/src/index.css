@@ -32,6 +32,7 @@ body {
 
   font-size: 1.6rem; /* 16px or style elements individually */
   min-height: 100vh; /* body - takes the full screen */
+  background-color: var(--lightGray-color);
 }
 
 /* Changing the style of selected text */
